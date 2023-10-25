@@ -29,6 +29,10 @@ données en fonction de leur utilisation.
 
 
 # Installation
+Installation des dépendances :
+```python
+pip install -r requirements.txt
+```
 # Utilisation
 
 # Critères d’Évaluation
@@ -38,6 +42,7 @@ fluide et adaptative ?
 - Documentation: Votre documentation est-elle complète et explicative ?
 
 # Ressources Supplémentaires
+- [Usefull Fake API](https://jsonplaceholder.typicode.com/)
 - [Python Data Management](https://www.datacamp.com/tutorial/data-management-python)
 - [Python API](https://www.dataquest.io/blog/python-api-tutorial/)
 # Note
