@@ -1,8 +1,0 @@
-fastapi
-numpy
-pandas
-yfinance
-requests
-ipykernel
-black
-
