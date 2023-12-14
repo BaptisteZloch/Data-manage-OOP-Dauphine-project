@@ -47,7 +47,7 @@ class FastApiBuilderUtility:
 
 
 class FastApiBuilder(FastApiBuilderCore, FastApiBuilderUtility):
-    _instance: Optional[FastApiBuilder] = None
+    _instance = None
 
     def __init__(
         self,
@@ -59,24 +59,47 @@ class FastApiBuilder(FastApiBuilderCore, FastApiBuilderUtility):
             self.health_check,
             "/health",
             "GET",
-            inplace=True,
             function_description="Perform a health check on the API",
         )
 
-    # def my_decorator_with_named_param(param, param2="cc"):
-    # def decorator(func):
-    #     def wrapper(*args, **kwargs):
-    #         print(f"Decorator parameter: {param}, {param2}")
-    #         return func(*args, **kwargs)
-    #     return wrapper
-    # return decorator
+    def add_function_to_api_decorator(
+        self,
+        route_path: str,
+        method: HttpMethod,
+        function_name: str = "<lambda>",
+        function_description: str = "-",
+        using_cache: bool = False,
+    ) -> Callable:
+        """Decorator function that add a function to the API routes.
+
+        Args:
+            route_path (str): The API path to the function.
+            method (HttpMethod): The HTTP method to use for the API.
+            function_name (str): The name of the function (for the API documentation). Defaults to "<lambda>".
+            function_description (str): The description of the function (for the API documentation). Defaults to "-".
+            using_cache (bool): Use the `lru_cache` decorator on the function. Defaults to False.
+        Returns:
+            Callable: The modified instance or None if inplace is True.
+        """
+
+        def decorator(func: Callable) -> Callable:
+            self.add_function_to_api(
+                function=func,
+                route_path=route_path,
+                method=method,
+                function_name=function_name,
+                function_description=function_description,
+                using_cache=using_cache,
+            )
+            return func
+
+        return decorator
 
     def add_function_to_api(
         self,
         function: Callable[[Union[Any, None]], Union[Any, Iterable[Any]]],
         route_path: str,
         method: HttpMethod,
-        inplace: bool = False,
         function_name: str = "<lambda>",
         function_description: str = "-",
         using_cache: bool = False,
@@ -87,7 +110,6 @@ class FastApiBuilder(FastApiBuilderCore, FastApiBuilderUtility):
             function (Callable[[Union[Any, None]], Union[Any, Iterable[Any]]]) The function to wrap with the API.
             route_path (str): The API path to the function.
             method (HttpMethod): The HTTP method to use for the API.
-            inplace (bool): Modify the instance (`inplace=True`) or get the modified instance (`inplace=False`). Defaults to False.
             function_name (str): The name of the function (for the API documentation). Defaults to "<lambda>".
             function_description (str): The description of the function (for the API documentation). Defaults to "-".
             using_cache (bool): Use the `lru_cache` decorator on the function. Defaults to False.
@@ -117,8 +139,6 @@ class FastApiBuilder(FastApiBuilderCore, FastApiBuilderUtility):
             methods=[method],
             description=function_description,
         )
-        if inplace is False:
-            return self
 
     def start_api(self) -> None:
         """Start the API."""
@@ -126,13 +146,12 @@ class FastApiBuilder(FastApiBuilderCore, FastApiBuilderUtility):
             self._get_routes,
             "/functions",
             "GET",
-            inplace=True,
             function_description="Get the list of functions",
         )
         self.__app.include_router(self.__app_router)
 
         uvicorn.run(
-            self.__app,  # type: ignore
+            self.__app,
             host=self.host,
             port=self.port,
             # workers=4,

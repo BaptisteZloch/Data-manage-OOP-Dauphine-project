@@ -37,18 +37,16 @@ if __name__ == "__main__":
     # mafunc2(2)
     api_builder = FastApiBuilder()
 
+    @api_builder.add_function_to_api_decorator("/foo/{rest_of_path:path}", "GET")
     def foo(rest_of_path: str) -> Dict[str, str]:
         """Function to test the API."""
         return {"rest_of_path": rest_of_path}
 
     api_builder.add_function_to_api(
-        foo, "/foo/{rest_of_path:path}", "GET", inplace=False
-    ).add_function_to_api(
         lambda rest_of_path: {"rest_of_path": rest_of_path},
         "/bar/{rest_of_path:path}",
         "GET",
         function_name="bar",
-        inplace=True,
         using_cache=True,
     )
     api_builder.start_api()
