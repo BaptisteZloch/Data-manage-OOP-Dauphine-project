@@ -1,8 +1,7 @@
-from datetime import datetime
-from typing import Callable, Dict
+from typing import Dict
+from pydantic import BaseModel
 
 from fast_api_builder.services.fast_api_builder import FastApiBuilder
-from pydantic import BaseModel
 
 
 class MultiplyPostInput(BaseModel):
