@@ -1,6 +1,6 @@
-# DataManager
+# FastAPIDecorator
 Auteurs : **Milo Séguin - Ayman Othman - Baptiste Zloch**
-- [DataManager](#datamanager)
+- [FastAPIDecorator](#fastapidecorator)
   - [Description du Projet](#description-du-projet)
   - [Objectifs du Projet](#objectifs-du-projet)
   - [Consignes](#consignes)
@@ -31,9 +31,12 @@ données en fonction de leur utilisation.
 # Installation
 Installation des dépendances :
 ```python
-pip install -r requirements.txt
+git clone 
+pip install poetry
+poetry install
 ```
 # Utilisation
+Créer vos fonctions Python et décorez ces fonctions avec notre API Builder. L'ensemble de la documentation se trouve dans le dossier `./docs`.
 
 # Critères d’Évaluation
 - Efficacité du Gestionnaire: Le gestionnaire gère-t-il correctement les données ?
