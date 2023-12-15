@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Callable
 
-from fast_api_builder.services.types import HttpMethod
+from fast_api_builder.utils.types import HttpMethod
 
 
 class FastApiBuilderCore(ABC):

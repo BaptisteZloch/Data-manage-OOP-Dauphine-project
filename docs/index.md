@@ -1,5 +1,7 @@
+# Documentation
 Auteurs : **Milo Séguin - Ayman Othman - Baptiste Zloch**
 # Table of content
+- [Documentation](#documentation)
 - [Table of content](#table-of-content)
 - [Initialize](#initialize)
 - [Create API from functions](#create-api-from-functions)

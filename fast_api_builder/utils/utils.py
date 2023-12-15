@@ -1,7 +1,7 @@
 from functools import cached_property, wraps
 from typing import Callable, Dict, Final, Union
 
-from fast_api_builder.services.types import CustomRoute
+from fast_api_builder.utils.types import CustomRoute
 
 
 class FastApiBuilderUtility:

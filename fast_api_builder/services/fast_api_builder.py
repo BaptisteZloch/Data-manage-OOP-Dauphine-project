@@ -3,10 +3,10 @@ from functools import lru_cache
 from typing import Any, Callable, Iterable, Self, Union
 from fastapi import APIRouter, FastAPI
 import uvicorn
-from fast_api_builder.services.ABC_classes import FastApiBuilderCore
-from fast_api_builder.services.utils import FastApiBuilderUtility
+from fast_api_builder.abc_classes.ABC_classes import FastApiBuilderCore
+from fast_api_builder.utils.utils import FastApiBuilderUtility
 from fast_api_builder.services.api_logger import ApiLogger
-from fast_api_builder.services.types import CustomRoute, HttpMethod
+from fast_api_builder.utils.types import CustomRoute, HttpMethod
 
 
 class FastApiBuilder(FastApiBuilderCore, FastApiBuilderUtility):
@@ -96,6 +96,8 @@ class FastApiBuilder(FastApiBuilderCore, FastApiBuilderUtility):
                 methods=[method],
                 description=function_description,
             )
+        else:
+            raise NotImplementedError(f"Method {method} not supported")
 
     def start_api(self) -> None:
         """Start the API."""
